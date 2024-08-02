@@ -11,8 +11,8 @@ type CreateStoreRequest = {
 export const useCreateStore = () => {
   const mutation = useMutation<Store, Error, CreateStoreRequest>({
     mutationFn: createStore,
-    onSuccess: () => {
-      toast.success("Store created successfully");
+    onSuccess: (store) => {
+      window.location.assign(`${store.id}`);
     },
     onError: (error: Error) => {
       toast.error(error.message);
