@@ -2,7 +2,10 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 
+import { Toaster } from "@/components/ui/sonner";
+
 import { ModalProvider } from "@/providers/ModalProvider";
+import { QueryProvider } from "@/providers/QueryProvider";
 
 import "./globals.css";
 
@@ -22,8 +25,11 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body className={inter.className}>
-          <ModalProvider />
-          {children}
+          <QueryProvider>
+            <ModalProvider />
+            <Toaster />
+            {children}
+          </QueryProvider>
         </body>
       </html>
     </ClerkProvider>

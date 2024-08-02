@@ -17,6 +17,7 @@ import {
 import { Modal } from "@/components/Modal";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { useCreateStore } from "@/features/stores/query";
 
 const formSchema = z.object({
   name: z.string().trim().min(1),
@@ -34,8 +35,10 @@ export const StoreModal = () => {
     },
   });
 
+  const { mutate, isPending } = useCreateStore();
+
   const onSubmit = (values: FormData) => {
-    console.log({ values });
+    mutate({ name: values.name });
   };
 
   return (
@@ -54,7 +57,11 @@ export const StoreModal = () => {
               <FormItem>
                 <FormLabel>Name</FormLabel>
                 <FormControl>
-                  <Input placeholder="E-Commerce" {...field} />
+                  <Input
+                    disabled={isPending}
+                    placeholder="E-Commerce"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -62,10 +69,15 @@ export const StoreModal = () => {
           />
 
           <div className="mt-6 flex items-center justify-end w-full gap-3">
-            <Button variant="outline" type="button" onClick={onClose}>
+            <Button
+              disabled={isPending}
+              variant="outline"
+              type="button"
+              onClick={onClose}
+            >
               Cancel
             </Button>
-            <Button>Continue</Button>
+            <Button disabled={isPending}>Continue</Button>
           </div>
         </form>
       </Form>
