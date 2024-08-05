@@ -33,3 +33,16 @@ export const updateStore = async (storeId: string, data: { name: string }) => {
 
   return await res.json();
 };
+
+export const deleteStore = async (storeId: string) => {
+  const res = await fetch(`/api/stores/${storeId}`, {
+    method: "DELETE",
+  });
+
+  if (!res.ok) {
+    throw new Error(
+      "Error deleting store. Make sure you removed all products and categories first."
+    );
+  }
+  return await res.json();
+};
