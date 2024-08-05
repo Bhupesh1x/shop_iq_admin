@@ -21,7 +21,7 @@ export const Navbar = async () => {
   });
 
   return (
-    <nav className="border-b h-16 flex items-center px-3 md:px-6">
+    <nav className="border-b h-16 flex items-center main-container">
       <StoreSwitcher items={stores} />
       <MainNav />
       <div className="ml-auto">

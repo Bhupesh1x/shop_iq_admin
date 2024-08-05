@@ -73,3 +73,9 @@ body,
     @apply bg-background text-foreground;
   }
 }
+
+@layer components {
+  .main-container {
+    @apply max-w-screen-2xl px-3 md:px-6;
+  }
+}
