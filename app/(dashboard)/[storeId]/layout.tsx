@@ -3,6 +3,8 @@ import { auth } from "@clerk/nextjs/server";
 
 import db from "@/lib/db";
 
+import { Navbar } from "@/components/dashboard/Navbar";
+
 type Props = {
   children: React.ReactNode;
   params: { storeId: string };
@@ -29,7 +31,7 @@ const DashoardLayout = async ({ children, params }: Props) => {
 
   return (
     <div>
-      <h1>This will be a navbar</h1>
+      <Navbar />
       {children}
     </div>
   );
