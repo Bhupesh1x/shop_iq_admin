@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 
+import { useOrigin } from "@/hooks/useOrigin";
 import { useDeleteStore, useUpdateStore } from "@/features/stores/query";
 
 import {
@@ -21,6 +22,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Heading } from "@/components/Heading";
 import { Button } from "@/components/ui/button";
+import { ApiAlert } from "@/components/ApiAlert";
 import { AlertModal } from "@/components/AlertModal";
 import { Separator } from "@/components/ui/separator";
 
@@ -43,6 +45,8 @@ const SettingsForm = ({ store }: Props) => {
   });
 
   const [open, setOpen] = useState(false);
+
+  const origin = useOrigin();
 
   const router = useRouter();
   const { mutate, isPending } = useUpdateStore(store.id);
@@ -118,6 +122,12 @@ const SettingsForm = ({ store }: Props) => {
           </Button>
         </form>
       </Form>
+      <Separator />
+      <ApiAlert
+        title="NEXT_PUBLIC_API_URL"
+        description={`${origin}/api/${store.id}`}
+        variant="public"
+      />
     </>
   );
 };

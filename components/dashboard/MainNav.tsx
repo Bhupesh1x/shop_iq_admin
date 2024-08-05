@@ -11,6 +11,11 @@ const MainNav = () => {
   const routes = useMemo(() => {
     return [
       {
+        href: `/${params.storeId}`,
+        label: "Overview",
+        isActive: pathname === `/${params.storeId}`,
+      },
+      {
         href: `/${params.storeId}/settings`,
         label: "Settings",
         isActive: pathname === `/${params.storeId}/settings`,
@@ -19,7 +24,7 @@ const MainNav = () => {
   }, [params.storeId, pathname]);
 
   return (
-    <div className="ml-3">
+    <div className="ml-3 space-x-3">
       {routes.map((route) => (
         <Link
           key={route.href}

@@ -1,3 +1,7 @@
+"use client";
+
+import { useEffect, useState } from "react";
+
 import { Modal } from "@/components/Modal";
 import { Button } from "@/components/ui/button";
 
@@ -14,6 +18,16 @@ export const AlertModal = ({
   onClose,
   onConfirm,
 }: Props) => {
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) {
+    return null;
+  }
+
   return (
     <Modal
       isOpen={isOpen}
