@@ -1,11 +1,14 @@
 "use client";
 
 import * as z from "zod";
+import { useState } from "react";
 import { Trash } from "lucide-react";
 import { Store } from "@prisma/client";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
+
+import { useDeleteStore, useUpdateStore } from "@/features/stores/query";
 
 import {
   Form,
@@ -18,8 +21,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Heading } from "@/components/Heading";
 import { Button } from "@/components/ui/button";
+import { AlertModal } from "@/components/AlertModal";
 import { Separator } from "@/components/ui/separator";
-import { useUpdateStore } from "@/features/stores/query";
 
 type Props = {
   store: Store;
@@ -39,8 +42,11 @@ const SettingsForm = ({ store }: Props) => {
     },
   });
 
+  const [open, setOpen] = useState(false);
+
   const router = useRouter();
   const { mutate, isPending } = useUpdateStore(store.id);
+  const { mutate: deleteMutate, isPending: isDeletePending } = useDeleteStore();
 
   const onSubmit = (values: SettingsFormValues) => {
     mutate(values, {
@@ -50,11 +56,32 @@ const SettingsForm = ({ store }: Props) => {
     });
   };
 
+  const onConfirm = () => {
+    deleteMutate(store.id, {
+      onSuccess: () => {
+        setOpen(false);
+        router.refresh();
+        router.push("/");
+      },
+    });
+  };
+
   return (
     <>
+      <AlertModal
+        isOpen={open}
+        onClose={() => setOpen(false)}
+        onConfirm={onConfirm}
+        isLoading={isPending || isDeletePending}
+      />
       <div className="flex items-center justify-between">
         <Heading title="Settings" description="Manage store preferences" />
-        <Button disabled={isPending} variant="destructive" size="icon">
+        <Button
+          disabled={isPending || isDeletePending}
+          variant="destructive"
+          size="icon"
+          onClick={() => setOpen(true)}
+        >
           <Trash />
         </Button>
       </div>
@@ -73,7 +100,7 @@ const SettingsForm = ({ store }: Props) => {
                   <FormControl>
                     <Input
                       {...field}
-                      disabled={isPending}
+                      disabled={isPending || isDeletePending}
                       placeholder="Store name..."
                     />
                   </FormControl>
@@ -82,7 +109,11 @@ const SettingsForm = ({ store }: Props) => {
               )}
             />
           </div>
-          <Button disabled={isPending} className="ml-auto" type="submit">
+          <Button
+            disabled={isPending || isDeletePending}
+            className="ml-auto"
+            type="submit"
+          >
             Save changes
           </Button>
         </form>
