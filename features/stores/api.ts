@@ -17,3 +17,19 @@ export const createStore = async ({ name }: CreateStoreRequest) => {
 
   return await res.json();
 };
+
+export const updateStore = async (storeId: string, data: { name: string }) => {
+  const res = await fetch(`/api/stores/${storeId}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+
+  if (!res.ok) {
+    throw new Error("Error updating store");
+  }
+
+  return await res.json();
+};
