@@ -5,8 +5,13 @@ import { useState } from "react";
 import { Trash } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { Billboard } from "@prisma/client";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
+
+import {
+  useCreateBillboard,
+  useUpdateBillboard,
+} from "@/features/billboards/queries";
 
 import {
   Form,
@@ -22,8 +27,6 @@ import { Button } from "@/components/ui/button";
 import { AlertModal } from "@/components/AlertModal";
 import { Separator } from "@/components/ui/separator";
 import { UploadImage } from "@/components/UploadImage";
-
-const isLoading = false;
 
 type Props = {
   billboard: Billboard | null;
@@ -45,12 +48,41 @@ export const BillboardForm = ({ billboard }: Props) => {
     },
   });
 
+  const params = useParams();
+  const router = useRouter();
   const [open, setOpen] = useState(false);
 
-  const router = useRouter();
+  const createMutation = useCreateBillboard();
+  const updateMutation = useUpdateBillboard();
+
+  const isLoading = createMutation.isPending || updateMutation.isPending;
 
   const onSubmit = (values: BillboardFormValues) => {
-    console.log(values);
+    if (billboard) {
+      updateMutation.mutate(
+        {
+          ...values,
+          storeId: params.storeId as string,
+          billboardId: params.billboardId as string,
+        },
+        {
+          onSuccess: () => {
+            router.refresh();
+            router.push(`/${params.storeId}/billboards`);
+          },
+        }
+      );
+    } else {
+      createMutation.mutate(
+        { ...values, storeId: params.storeId as string },
+        {
+          onSuccess: () => {
+            router.refresh();
+            router.push(`/${params.storeId}/billboards`);
+          },
+        }
+      );
+    }
   };
 
   const onConfirm = () => {
