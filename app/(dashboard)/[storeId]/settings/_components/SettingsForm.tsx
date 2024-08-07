@@ -36,7 +36,7 @@ const formSchema = z.object({
 
 type SettingsFormValues = z.infer<typeof formSchema>;
 
-const SettingsForm = ({ store }: Props) => {
+export const SettingsForm = ({ store }: Props) => {
   const form = useForm<SettingsFormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -131,5 +131,3 @@ const SettingsForm = ({ store }: Props) => {
     </>
   );
 };
-
-export default SettingsForm;

@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { useStoreModal } from "@/hooks/useStoreModal";
+import { useCreateStore } from "@/features/stores/query";
 
 import {
   Form,
@@ -17,7 +18,6 @@ import {
 import { Modal } from "@/components/Modal";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { useCreateStore } from "@/features/stores/query";
 
 const formSchema = z.object({
   name: z.string().trim().min(1),

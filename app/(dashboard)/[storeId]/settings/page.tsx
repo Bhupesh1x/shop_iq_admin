@@ -3,7 +3,7 @@ import { auth } from "@clerk/nextjs/server";
 
 import db from "@/lib/db";
 
-import SettingsForm from "./_components/SettingsForm";
+import { SettingsForm } from "./_components/SettingsForm";
 
 type Props = {
   params: {
