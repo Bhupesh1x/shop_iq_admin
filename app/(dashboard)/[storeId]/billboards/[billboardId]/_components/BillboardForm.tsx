@@ -67,8 +67,8 @@ export const BillboardForm = ({ billboard }: Props) => {
         },
         {
           onSuccess: () => {
-            router.refresh();
             router.push(`/${params.storeId}/billboards`);
+            router.refresh();
           },
         }
       );
