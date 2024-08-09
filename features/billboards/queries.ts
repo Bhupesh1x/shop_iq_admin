@@ -1,7 +1,7 @@
 import { toast } from "sonner";
 import { useMutation } from "@tanstack/react-query";
 
-import { createBillbord, updateBillbord } from "./api";
+import { createBillbord, deleteBillboard, updateBillbord } from "./api";
 
 export const useCreateBillboard = () => {
   const mutation = useMutation({
@@ -22,6 +22,20 @@ export const useUpdateBillboard = () => {
     mutationFn: updateBillbord,
     onSuccess: () => {
       toast.success("Billboard updated");
+    },
+    onError: (error: Error) => {
+      toast.error(error.message);
+    },
+  });
+
+  return mutation;
+};
+
+export const useDeleteBillboard = () => {
+  const mutation = useMutation({
+    mutationFn: deleteBillboard,
+    onSuccess: () => {
+      toast.success("Billboard deleted");
     },
     onError: (error: Error) => {
       toast.error(error.message);

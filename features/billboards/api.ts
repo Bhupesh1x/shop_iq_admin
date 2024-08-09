@@ -42,3 +42,25 @@ export const updateBillbord = async (data: UpdateBillbordRequest) => {
 
   return await res.json();
 };
+
+type DeleteRequest = {
+  storeId: string;
+  billboardId: string;
+};
+
+export const deleteBillboard = async (data: DeleteRequest) => {
+  const res = await fetch(
+    `/api/${data.storeId}/billboards/${data.billboardId}`,
+    {
+      method: "DELETE",
+    }
+  );
+
+  if (!res) {
+    throw new Error(
+      "Error deleting billboard. Make sure you removed all categories first."
+    );
+  }
+
+  return await res.json();
+};
