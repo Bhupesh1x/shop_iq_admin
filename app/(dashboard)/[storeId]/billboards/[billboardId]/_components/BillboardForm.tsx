@@ -10,6 +10,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 import {
   useCreateBillboard,
+  useDeleteBillboard,
   useUpdateBillboard,
 } from "@/features/billboards/queries";
 
@@ -54,8 +55,12 @@ export const BillboardForm = ({ billboard }: Props) => {
 
   const createMutation = useCreateBillboard();
   const updateMutation = useUpdateBillboard();
+  const deleteMutation = useDeleteBillboard();
 
-  const isLoading = createMutation.isPending || updateMutation.isPending;
+  const isLoading =
+    createMutation.isPending ||
+    updateMutation.isPending ||
+    deleteMutation.isPending;
 
   const onSubmit = (values: BillboardFormValues) => {
     if (billboard) {
@@ -77,8 +82,8 @@ export const BillboardForm = ({ billboard }: Props) => {
         { ...values, storeId: params.storeId as string },
         {
           onSuccess: () => {
-            router.refresh();
             router.push(`/${params.storeId}/billboards`);
+            router.refresh();
           },
         }
       );
@@ -86,7 +91,18 @@ export const BillboardForm = ({ billboard }: Props) => {
   };
 
   const onConfirm = () => {
-    console.log("confirm");
+    deleteMutation.mutate(
+      {
+        storeId: params.storeId as string,
+        billboardId: params.billboardId as string,
+      },
+      {
+        onSuccess: () => {
+          router.push(`/${params.storeId}/billboards`);
+          router.refresh();
+        },
+      }
+    );
   };
 
   const title = billboard ? "Edit Billboard" : "Create Billboard";
