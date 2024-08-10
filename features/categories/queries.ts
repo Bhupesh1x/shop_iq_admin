@@ -1,13 +1,13 @@
 import { toast } from "sonner";
 import { useMutation } from "@tanstack/react-query";
 
-import { createBillboard, deleteBillboard, updateBillboard } from "./api";
+import { createCategory, updateCategory, deleteCategory } from "./api";
 
-export const useCreateBillboard = () => {
+export const useCreateCategory = () => {
   const mutation = useMutation({
-    mutationFn: createBillboard,
+    mutationFn: createCategory,
     onSuccess: () => {
-      toast.success("Billboard created");
+      toast.success("Category created");
     },
     onError: (error: Error) => {
       toast.error(error.message);
@@ -17,11 +17,11 @@ export const useCreateBillboard = () => {
   return mutation;
 };
 
-export const useUpdateBillboard = () => {
+export const useUpdateCategory = () => {
   const mutation = useMutation({
-    mutationFn: updateBillboard,
+    mutationFn: updateCategory,
     onSuccess: () => {
-      toast.success("Billboard updated");
+      toast.success("Category updated");
     },
     onError: (error: Error) => {
       toast.error(error.message);
@@ -31,11 +31,11 @@ export const useUpdateBillboard = () => {
   return mutation;
 };
 
-export const useDeleteBillboard = () => {
+export const useDeleteCategory = () => {
   const mutation = useMutation({
-    mutationFn: deleteBillboard,
+    mutationFn: deleteCategory,
     onSuccess: () => {
-      toast.success("Billboard deleted");
+      toast.success("Category deleted");
     },
     onError: (error: Error) => {
       toast.error(error.message);

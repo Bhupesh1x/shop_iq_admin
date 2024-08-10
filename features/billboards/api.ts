@@ -4,7 +4,7 @@ type CreateBillboardRequest = {
   storeId: string;
 };
 
-export const createBillbord = async (data: CreateBillboardRequest) => {
+export const createBillboard = async (data: CreateBillboardRequest) => {
   const res = await fetch(`/api/${data.storeId}/billboards`, {
     method: "POST",
     headers: {
@@ -20,11 +20,11 @@ export const createBillbord = async (data: CreateBillboardRequest) => {
   return await res.json();
 };
 
-interface UpdateBillbordRequest extends CreateBillboardRequest {
+interface UpdateBillboardRequest extends CreateBillboardRequest {
   billboardId: string;
 }
 
-export const updateBillbord = async (data: UpdateBillbordRequest) => {
+export const updateBillboard = async (data: UpdateBillboardRequest) => {
   const res = await fetch(
     `/api/${data.storeId}/billboards/${data.billboardId}`,
     {
