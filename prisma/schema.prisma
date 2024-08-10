@@ -21,7 +21,7 @@ model Store {
 
   billboards Billboard[]
   categories Category[]
-  sizes      Sizes[]
+  sizes      Size[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -60,7 +60,7 @@ model Category {
   @@index([billboardId])
 }
 
-model Sizes {
+model Size {
   id    String @id @default(uuid())
   name  String
   value String

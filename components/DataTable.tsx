@@ -51,7 +51,7 @@ export function DataTable<TData, TValue>({
     <>
       <div className="flex items-center py-4">
         <Input
-          placeholder={`Filter by ${searchKey}s...`}
+          placeholder={`Filter by ${searchKey}...`}
           value={
             (table.getColumn(`${searchKey}`)?.getFilterValue() as string) ?? ""
           }
