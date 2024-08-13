@@ -105,10 +105,10 @@ export async function GET(
         isArchived: false,
       },
       include: {
-        // category: true,
-        // color: true,
-        // images: true,
-        // size: true,
+        category: true,
+        color: true,
+        images: true,
+        size: true,
       },
       orderBy: {
         createdAt: "desc",

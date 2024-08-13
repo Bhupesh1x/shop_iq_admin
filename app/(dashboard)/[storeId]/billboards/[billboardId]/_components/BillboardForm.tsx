@@ -144,7 +144,7 @@ export const BillboardForm = ({ billboard }: Props) => {
                 <FormControl>
                   <UploadImage
                     disabled={isLoading}
-                    value={field.value}
+                    value={field.value ? [field.value] : []}
                     onChange={(url) => field.onChange(url)}
                     onRemove={() => field.onChange("")}
                   />
@@ -153,7 +153,7 @@ export const BillboardForm = ({ billboard }: Props) => {
               </FormItem>
             )}
           />
-          <div className="grid grid-cols-3 gap-8">
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-8 w-full">
             <FormField
               name="label"
               control={form.control}

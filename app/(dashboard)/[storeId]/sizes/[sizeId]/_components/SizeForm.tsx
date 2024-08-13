@@ -134,7 +134,7 @@ export const SizeForm = ({ size }: Props) => {
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-          <div className="grid grid-cols-3 gap-8">
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-8 w-full">
             <FormField
               name="name"
               control={form.control}
