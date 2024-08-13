@@ -22,7 +22,9 @@ export const Navbar = async () => {
 
   return (
     <nav className="border-b h-16 flex items-center main-container">
-      <StoreSwitcher items={stores} />
+      <div className="hidden lg:block">
+        <StoreSwitcher items={stores} />
+      </div>
       <MainNav />
       <div className="ml-auto">
         <UserButton afterSignOutUrl="/" />
